@@ -1,5 +1,6 @@
 local server = require "nvim-lsp-installer.server"
 local npm = require "nvim-lsp-installer.installers.npm"
+local path = require "nvim-lsp-installer.path"
 
 return function(name, root_dir)
     return server.Server:new {
@@ -9,7 +10,7 @@ return function(name, root_dir)
         homepage = "https://github.com/nwolverson/purescript-language-server",
         installer = npm.packages { "purescript-language-server" },
         default_options = {
-            cmd = { npm.executable(root_dir, "purescript-language-server"), "--stdio" },
+            cmd = { "node", path.concat { root_dir, "out/src/server.js" }, "--stdio" },
         },
     }
 end
